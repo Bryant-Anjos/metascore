@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/native'
 import DatabaseProvider from '@src/components/contexts/DatabaseProvider'
 import { useFonts } from 'expo-font'
-import { Slot, SplashScreen } from 'expo-router'
+import { SplashScreen, Stack } from 'expo-router'
 import { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -50,7 +50,7 @@ function RootLayoutNav() {
     <DatabaseProvider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <SafeAreaProvider>
-          <Slot />
+          <Stack screenOptions={{ headerShown: false }} />
         </SafeAreaProvider>
       </ThemeProvider>
     </DatabaseProvider>

@@ -1,7 +1,4 @@
-import { useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
-import { Button, Text } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 import useDatabase from '@src/shared/hooks/useDatabase'
 
@@ -18,8 +15,7 @@ interface Record {
   day: number
 }
 
-export default function Goal() {
-  const { id } = useLocalSearchParams()
+export default function useGoalScreen(id: string) {
   const { runQuery } = useDatabase()
 
   const [goal, setGoal] = useState<Goal>()
@@ -31,10 +27,6 @@ export default function Goal() {
     )
     getYearRecords()
   }, [])
-
-  useEffect(() => {
-    console.log('records', records)
-  }, [records])
 
   function getYearRecords() {
     const year = new Date().getFullYear()
@@ -74,12 +66,5 @@ export default function Goal() {
     ).then(getYearRecords)
   }
 
-  return (
-    <SafeAreaView>
-      <Text className="text-2xl">Goal name: {goal?.name}</Text>
-      <Text className="text-2xl">Total days: {records.length}</Text>
-      <Text className="text-2xl">Is done: {String(isDoneToday())}</Text>
-      <Button title="mark as done" onPress={toogleIsDone} />
-    </SafeAreaView>
-  )
+  return { goal, records, isDoneToday, toogleIsDone }
 }
