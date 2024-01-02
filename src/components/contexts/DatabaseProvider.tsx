@@ -6,9 +6,9 @@ function openDatabase() {
   return db
 }
 
-function runQuery<T>(query: string, params: any[] = []): Promise<T[]> {
-  const db = openDatabase()
+const db = openDatabase()
 
+function runQuery<T>(query: string, params: any[] = []): Promise<T[]> {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(

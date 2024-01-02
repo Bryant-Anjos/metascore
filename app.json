@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.bryant_anjos.metascore"
     },
     "web": {
       "bundler": "metro",
@@ -35,6 +36,14 @@
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "7d06b35e-e5c9-4621-a3c1-42be61689515"
+      }
     }
   }
 }
