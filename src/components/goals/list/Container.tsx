@@ -5,5 +5,9 @@ export interface ContainerProps {
 }
 
 export default function Container({ children }: ContainerProps) {
-  return <SafeAreaView className="flex-1 px-2">{children}</SafeAreaView>
+  return (
+    <SafeAreaView className="flex-1 px-2 bg-light-background">
+      {children}
+    </SafeAreaView>
+  )
 }

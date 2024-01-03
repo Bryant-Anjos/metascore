@@ -5,6 +5,7 @@ import Goal from './Goal'
 interface Goal {
   id: string
   name: string
+  active: boolean
 }
 
 export interface GoalsProps {

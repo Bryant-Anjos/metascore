@@ -12,7 +12,7 @@ export type TouchableProps = React.ComponentProps<
 
 const Touchable = forwardRef<TouchableNativeFeedbackRef, TouchableProps>(
   function (props, ref) {
-    const { children, borderless = false, color, ...otherProps } = props
+    const { children, borderless = false, color, style, ...otherProps } = props
 
     return (
       <TouchableNativeFeedback
@@ -21,7 +21,7 @@ const Touchable = forwardRef<TouchableNativeFeedbackRef, TouchableProps>(
         useForeground
         {...otherProps}
       >
-        <View>{children}</View>
+        <View style={style}>{children}</View>
       </TouchableNativeFeedback>
     )
   },
