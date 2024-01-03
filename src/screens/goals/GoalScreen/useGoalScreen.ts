@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import useDatabase from '@src/shared/hooks/useDatabase'
 import getDateParts from '@src/shared/utils/getDateParts'
@@ -38,16 +38,19 @@ export default function useGoalScreen(id: string) {
     ).then(setRecords)
   }
 
-  function isDoneToday(): boolean {
-    const [year, month, day] = getDateParts()
-    return records.some(
-      record =>
-        record.year === year && record.month === month && record.day === day,
-    )
-  }
+  const isDoneToday = useMemo(
+    function (): boolean {
+      const [year, month, day] = getDateParts()
+      return records.some(
+        record =>
+          record.year === year && record.month === month && record.day === day,
+      )
+    },
+    [records],
+  )
 
   function toogleIsDone() {
-    const isDone = isDoneToday()
+    const isDone = isDoneToday
     const [year, month, day] = new Date()
       .toISOString()
       .split('T')

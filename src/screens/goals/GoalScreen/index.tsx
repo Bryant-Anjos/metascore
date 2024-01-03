@@ -1,23 +1,20 @@
 import { Stack, useLocalSearchParams } from 'expo-router'
-import { Button, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
+
+import CheckButton from '@src/components/goals/show/CheckButton'
+import Container from '@src/components/goals/show/Container'
 
 import useGoalScreen from './useGoalScreen'
+import CountDays from '@src/components/goals/show/CountDays'
 
 export default function Goal() {
   const { id } = useLocalSearchParams<{ id: string }>()
   const { goal, records, isDoneToday, toogleIsDone } = useGoalScreen(id)
 
   return (
-    <View>
-      <Stack.Screen
-        options={{
-          title: goal?.name,
-          headerShown: true,
-        }}
-      />
-      <Text className="text-2xl">Total days: {records.length}</Text>
-      <Text className="text-2xl">Is done: {String(isDoneToday())}</Text>
-      <Button title="mark as done" onPress={toogleIsDone} />
-    </View>
+    <Container title={goal?.name} checked={isDoneToday}>
+      <CountDays total={records.length} />
+      <CheckButton checked={isDoneToday} onPress={toogleIsDone} />
+    </Container>
   )
 }
