@@ -1,11 +1,10 @@
-import { Stack, useLocalSearchParams } from 'expo-router'
-import { Text, View } from 'react-native'
+import { useLocalSearchParams } from 'expo-router'
 
 import CheckButton from '@src/components/goals/show/CheckButton'
 import Container from '@src/components/goals/show/Container'
+import CountDays from '@src/components/goals/show/CountDays'
 
 import useGoalScreen from './useGoalScreen'
-import CountDays from '@src/components/goals/show/CountDays'
 
 export default function Goal() {
   const { id } = useLocalSearchParams<{ id: string }>()

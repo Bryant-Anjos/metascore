@@ -51,11 +51,7 @@ export default function useGoalScreen(id: string) {
 
   function toogleIsDone() {
     const isDone = isDoneToday
-    const [year, month, day] = new Date()
-      .toISOString()
-      .split('T')
-      .at(0)!
-      .split('-')
+    const [year, month, day] = getDateParts()
 
     runQuery(
       isDone

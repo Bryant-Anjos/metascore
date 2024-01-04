@@ -1,10 +1,7 @@
 export default function getDateParts(date = new Date()) {
-  const [year, month, day] = date
-    .toISOString()
-    .split('T')
-    .at(0)!
-    .split('-')
-    .map(Number)
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
 
   return [year, month, day] as [year: number, month: number, day: number]
 }
