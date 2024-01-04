@@ -11,7 +11,7 @@ export default function CreateGoal({ onClickButton }: CreateGoalProps) {
 
   function onPress() {
     if (text) {
-      onClickButton(text)
+      onClickButton(text.trim())
       setText('')
     }
   }

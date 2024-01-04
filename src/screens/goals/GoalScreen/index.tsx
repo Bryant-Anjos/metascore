@@ -8,11 +8,11 @@ import useGoalScreen from './useGoalScreen'
 
 export default function Goal() {
   const { id } = useLocalSearchParams<{ id: string }>()
-  const { goal, records, isDoneToday, toogleIsDone } = useGoalScreen(id)
+  const { goal, total, isDoneToday, toogleIsDone } = useGoalScreen(id)
 
   return (
     <Container title={goal?.name} checked={isDoneToday}>
-      <CountDays total={records.length} />
+      <CountDays total={total} />
       <CheckButton checked={isDoneToday} onPress={toogleIsDone} />
     </Container>
   )

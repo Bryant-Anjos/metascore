@@ -1,65 +1,31 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
-import useDatabase from '@src/shared/hooks/useDatabase'
 import getDateParts from '@src/shared/utils/getDateParts'
-
-interface Goal {
-  id: string
-  name: string
-}
-
-interface Record {
-  id: number
-  goal_id: string
-  year: number
-  month: number
-  day: number
-}
+import useGoals from '@src/shared/hooks/useGoals'
 
 export default function useGoalScreen(id: string) {
-  const { runQuery } = useDatabase()
+  const [year, month, day] = getDateParts()
+  const {
+    fetchGoalRecords,
+    getGoal,
+    getGoalRecords,
+    isGoalChecked,
+    toggleGoalChecked,
+  } = useGoals()
 
-  const [goal, setGoal] = useState<Goal>()
-  const [records, setRecords] = useState<Record[]>([])
+  const goal = getGoal(id)
+  const records = getGoalRecords(id, year)
+  const isDoneToday = isGoalChecked(id, year, month, day)
 
   useEffect(() => {
-    runQuery<Goal>('SELECT * FROM goals WHERE id = ?', [id]).then(([row]) =>
-      setGoal(row),
-    )
-    getYearRecords()
+    fetchGoalRecords(id, year)
   }, [])
 
-  function getYearRecords() {
-    const year = new Date().getFullYear()
-
-    runQuery<Record>(
-      'SELECT * FROM goal_records WHERE goal_id = ? AND year = ?',
-      [id, year],
-    ).then(setRecords)
-  }
-
-  const isDoneToday = useMemo(
-    function (): boolean {
-      const [year, month, day] = getDateParts()
-      return records.some(
-        record =>
-          record.year === year && record.month === month && record.day === day,
-      )
-    },
-    [records],
-  )
+  const total = useMemo(() => records?.length ?? 0, [records])
 
   function toogleIsDone() {
-    const isDone = isDoneToday
-    const [year, month, day] = getDateParts()
-
-    runQuery(
-      isDone
-        ? 'DELETE FROM goal_records WHERE goal_id = ? AND year = ? AND month = ? AND day = ?;'
-        : 'INSERT INTO goal_records (goal_id, year, month, day) VALUES (?, ?, ?, ?);',
-      [id, year, month, day],
-    ).then(getYearRecords)
+    return toggleGoalChecked(id, year, month, day)
   }
 
-  return { goal, records, isDoneToday, toogleIsDone }
+  return { goal, total, isDoneToday, toogleIsDone }
 }

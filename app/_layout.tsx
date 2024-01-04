@@ -1,5 +1,6 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import DatabaseProvider from '@src/components/contexts/DatabaseProvider'
+import GoalsProvider from '@src/components/contexts/GoalsProvider'
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
 import { useEffect } from 'react'
@@ -40,9 +41,11 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <DatabaseProvider>
-      <SafeAreaProvider>
-        <Stack screenOptions={{ headerShown: false }} />
-      </SafeAreaProvider>
+      <GoalsProvider>
+        <SafeAreaProvider>
+          <Stack screenOptions={{ headerShown: false }} />
+        </SafeAreaProvider>
+      </GoalsProvider>
     </DatabaseProvider>
   )
 }
