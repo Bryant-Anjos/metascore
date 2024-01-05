@@ -10,14 +10,15 @@ interface Goal {
 
 export interface GoalsProps {
   items: Goal[]
+  onCheck: (id: string) => void
 }
 
-export default function Goals({ items }: GoalsProps) {
+export default function Goals({ items, onCheck }: GoalsProps) {
   return (
     <FlatList
       data={items}
       keyExtractor={({ id }) => id}
-      renderItem={({ item }) => <Goal {...item} />}
+      renderItem={({ item }) => <Goal {...item} onCheck={onCheck} />}
     />
   )
 }

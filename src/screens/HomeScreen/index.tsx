@@ -6,13 +6,13 @@ import useHomeScreen from './useHomeScreen'
 import Title from '@src/components/goals/list/Title'
 
 export default function HomeScreen() {
-  const { goals, addGoal } = useHomeScreen()
+  const { goals, addGoal, toggleChecked } = useHomeScreen()
 
   return (
     <Container>
       <Title>Metascore</Title>
       <CreateGoal onClickButton={addGoal} />
-      <Goals items={goals} />
+      <Goals items={goals} onCheck={toggleChecked} />
     </Container>
   )
 }

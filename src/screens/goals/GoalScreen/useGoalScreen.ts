@@ -15,7 +15,7 @@ export default function useGoalScreen(id: string) {
 
   const goal = getGoal(id)
   const records = getGoalRecords(id, year)
-  const isDoneToday = isGoalChecked(id, year, month, day)
+  const isDoneToday = isGoalChecked(id)
 
   useEffect(() => {
     fetchGoalRecords(id, year)

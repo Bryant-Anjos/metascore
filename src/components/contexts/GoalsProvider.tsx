@@ -32,7 +32,7 @@ interface GoalsContextValue {
   getGoal(id: string): Goal | undefined
   getGoalRecords(id: string, year: number): GoalRecord[] | undefined
   addGoal(name: string): Promise<void>
-  isGoalChecked(id: string, year: number, month: number, day: number): boolean
+  isGoalChecked(id: string): boolean
   checkGoal(id: string, year: number, month: number, day: number): Promise<void>
   uncheckGoal(
     id: string,
@@ -109,15 +109,8 @@ export default function GoalsProvider(props: GoalsProviderProps) {
   }, [goals])
 
   const isGoalChecked = useMemo(() => {
-    return (id: string, year: number, month: number, day: number) => {
-      return (
-        getGoalRecords(id, year)?.some(
-          record =>
-            record.year === year &&
-            record.month === month &&
-            record.day === day,
-        ) ?? false
-      )
+    return (id: string) => {
+      return getGoal(id)?.checked ?? false
     }
   }, [getGoalRecords])
 
@@ -169,7 +162,7 @@ export default function GoalsProvider(props: GoalsProviderProps) {
     month: number,
     day: number,
   ) {
-    const checked = isGoalChecked(id, year, month, day)
+    const checked = isGoalChecked(id)
     await (checked
       ? uncheckGoal(id, year, month, day)
       : checkGoal(id, year, month, day))
