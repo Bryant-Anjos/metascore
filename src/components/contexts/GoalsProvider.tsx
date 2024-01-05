@@ -33,6 +33,12 @@ interface GoalsContextValue {
   getGoalRecords(id: string, year: number): GoalRecord[] | undefined
   addGoal(name: string): Promise<void>
   isGoalChecked(id: string): boolean
+  isGoalCheckedAtDate: (
+    id: string,
+    year: number,
+    month: number,
+    day: number,
+  ) => boolean
   checkGoal(id: string, year: number, month: number, day: number): Promise<void>
   uncheckGoal(
     id: string,
@@ -41,6 +47,12 @@ interface GoalsContextValue {
     day: number,
   ): Promise<void>
   toggleGoalChecked(
+    id: string,
+    year: number,
+    month: number,
+    day: number,
+  ): Promise<void>
+  toggleGoalCheckedAtDate(
     id: string,
     year: number,
     month: number,
@@ -114,6 +126,19 @@ export default function GoalsProvider(props: GoalsProviderProps) {
     }
   }, [getGoalRecords])
 
+  const isGoalCheckedAtDate = useMemo(() => {
+    return (id: string, year: number, month: number, day: number) => {
+      return (
+        getGoalRecords(id, year)?.some(
+          record =>
+            record.year === year &&
+            record.month === month &&
+            record.day === day,
+        ) ?? false
+      )
+    }
+  }, [getGoalRecords])
+
   async function checkGoal(
     id: string,
     year: number,
@@ -168,6 +193,18 @@ export default function GoalsProvider(props: GoalsProviderProps) {
       : checkGoal(id, year, month, day))
   }
 
+  async function toggleGoalCheckedAtDate(
+    id: string,
+    year: number,
+    month: number,
+    day: number,
+  ) {
+    const checked = isGoalCheckedAtDate(id, year, month, day)
+    await (checked
+      ? uncheckGoal(id, year, month, day)
+      : checkGoal(id, year, month, day))
+  }
+
   return (
     <GoalsContext.Provider
       {...props}
@@ -179,9 +216,11 @@ export default function GoalsProvider(props: GoalsProviderProps) {
         getGoalRecords,
         addGoal,
         isGoalChecked,
+        isGoalCheckedAtDate,
         checkGoal,
         uncheckGoal,
         toggleGoalChecked,
+        toggleGoalCheckedAtDate,
       }}
     />
   )

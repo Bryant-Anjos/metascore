@@ -1,21 +1,25 @@
-import { useEffect, useMemo } from 'react'
+import { addDays, subDays } from 'date-fns'
+import { useEffect, useMemo, useState } from 'react'
 
 import getDateParts from '@src/shared/utils/getDateParts'
 import useGoals from '@src/shared/hooks/useGoals'
 
 export default function useGoalScreen(id: string) {
-  const [year, month, day] = getDateParts()
   const {
     fetchGoalRecords,
     getGoal,
     getGoalRecords,
-    isGoalChecked,
-    toggleGoalChecked,
+    isGoalCheckedAtDate,
+    toggleGoalCheckedAtDate,
   } = useGoals()
+
+  const [date, setDate] = useState(new Date())
+
+  const [year, month, day] = useMemo(() => getDateParts(date), [date])
 
   const goal = getGoal(id)
   const records = getGoalRecords(id, year)
-  const isDoneToday = isGoalChecked(id)
+  const isDoneToday = isGoalCheckedAtDate(id, year, month, day)
 
   useEffect(() => {
     fetchGoalRecords(id, year)
@@ -24,8 +28,16 @@ export default function useGoalScreen(id: string) {
   const total = useMemo(() => records?.length ?? 0, [records])
 
   function toogleIsDone() {
-    return toggleGoalChecked(id, year, month, day)
+    return toggleGoalCheckedAtDate(id, year, month, day)
   }
 
-  return { goal, total, isDoneToday, toogleIsDone }
+  function addDay() {
+    setDate(oldDate => addDays(oldDate, 1))
+  }
+
+  function subDay() {
+    setDate(oldDate => subDays(oldDate, 1))
+  }
+
+  return { goal, total, isDoneToday, toogleIsDone, date, addDay, subDay }
 }
