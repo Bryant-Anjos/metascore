@@ -39,6 +39,10 @@ export default function useGoalScreen(id: string) {
     setDate(oldDate => subDays(oldDate, 1))
   }
 
+  function changeDate(year: number, month: number, day: number) {
+    setDate(new Date(year, month, day))
+  }
+
   return {
     goal,
     records,
@@ -48,5 +52,6 @@ export default function useGoalScreen(id: string) {
     date,
     addDay,
     subDay,
+    changeDate,
   }
 }

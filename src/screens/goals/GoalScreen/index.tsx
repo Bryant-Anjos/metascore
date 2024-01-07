@@ -20,6 +20,7 @@ export default function Goal() {
     date,
     addDay,
     subDay,
+    changeDate,
   } = useGoalScreen(id)
 
   return (
@@ -27,7 +28,7 @@ export default function Goal() {
       <DateSelector date={date} addDay={addDay} subDay={subDay} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <CountDays total={total} />
-        <GoalCalendar records={records} />
+        <GoalCalendar date={date} records={records} changeDate={changeDate} />
       </ScrollView>
       <CheckButton checked={isDoneToday} onPress={toogleIsDone} />
     </Container>
