@@ -9,10 +9,11 @@ export interface CheckButtonProps {
 }
 
 const button = tv({
-  base: 'rounded-full py-4 overflow-hidden absolute bottom-4 w-11/12 self-center border-light-link border-2',
+  base: 'rounded-full py-4 overflow-hidden absolute bottom-4 w-11/12 self-center border-light-success border-2',
   variants: {
     checked: {
-      false: 'bg-light-link',
+      true: 'bg-light-background',
+      false: 'bg-light-success',
     },
   },
 })
@@ -21,7 +22,7 @@ const text = tv({
   base: 'text-light-white text-center uppercase font-bold text-xl',
   variants: {
     checked: {
-      true: 'text-light-link',
+      true: 'text-light-success',
       false: 'text-light-white',
     },
   },

@@ -39,5 +39,14 @@ export default function useGoalScreen(id: string) {
     setDate(oldDate => subDays(oldDate, 1))
   }
 
-  return { goal, total, isDoneToday, toogleIsDone, date, addDay, subDay }
+  return {
+    goal,
+    records,
+    total,
+    isDoneToday,
+    toogleIsDone,
+    date,
+    addDay,
+    subDay,
+  }
 }

@@ -6,16 +6,29 @@ import CountDays from '@src/components/goals/show/CountDays'
 
 import useGoalScreen from './useGoalScreen'
 import DateSelector from '@src/components/goals/show/DateSelector'
+import GoalCalendar from '@src/components/goals/show/GoalCalendar'
+import { ScrollView } from 'react-native-gesture-handler'
 
 export default function Goal() {
   const { id } = useLocalSearchParams<{ id: string }>()
-  const { goal, total, isDoneToday, toogleIsDone, date, addDay, subDay } =
-    useGoalScreen(id)
+  const {
+    goal,
+    records,
+    total,
+    isDoneToday,
+    toogleIsDone,
+    date,
+    addDay,
+    subDay,
+  } = useGoalScreen(id)
 
   return (
     <Container title={goal?.name} checked={isDoneToday}>
       <DateSelector date={date} addDay={addDay} subDay={subDay} />
-      <CountDays total={total} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <CountDays total={total} />
+        <GoalCalendar records={records} />
+      </ScrollView>
       <CheckButton checked={isDoneToday} onPress={toogleIsDone} />
     </Container>
   )

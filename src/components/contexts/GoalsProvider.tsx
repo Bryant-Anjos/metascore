@@ -9,28 +9,14 @@ import {
   listGoalsQuery,
   uncheckGoalQuery,
 } from '@src/shared/queries/GoalsQueries'
-
-interface GoalRecord {
-  id: number
-  goalId: string
-  year: number
-  month: number
-  day: number
-}
-
-interface Goal {
-  id: string
-  name: string
-  checked: boolean
-  records: Record<number, GoalRecord[]>
-}
+import { Goal, GoalRecord } from '@src/types/goals'
 
 interface GoalsContextValue {
   goals: Goal[]
   fetchGoals(year: number, month: number, day: number): Promise<void>
   fetchGoalRecords(id: string, year: number): Promise<void>
   getGoal(id: string): Goal | undefined
-  getGoalRecords(id: string, year: number): GoalRecord[] | undefined
+  getGoalRecords(id: string, year: number): GoalRecord[]
   addGoal(name: string): Promise<void>
   isGoalChecked(id: string): boolean
   isGoalCheckedAtDate: (
@@ -117,7 +103,7 @@ export default function GoalsProvider(props: GoalsProviderProps) {
 
   const getGoalRecords = useMemo(() => {
     return (id: string, year: number) =>
-      goals.find(goal => goal.id === id)?.records[year]
+      goals.find(goal => goal.id === id)?.records[year] ?? []
   }, [goals])
 
   const isGoalChecked = useMemo(() => {
