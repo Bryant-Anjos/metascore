@@ -2,7 +2,7 @@
   "expo": {
     "name": "Metascore",
     "slug": "metascore",
-    "version": "1.0.0",
+    "version": "0.5.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -23,7 +23,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.bryant_anjos.metascore"
+      "package": "com.bryant.metascore",
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
