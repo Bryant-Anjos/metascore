@@ -2,7 +2,7 @@
   "expo": {
     "name": "Metascore",
     "slug": "metascore",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -20,11 +20,11 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.bryant.metascore",
-      "versionCode": 2
+      "versionCode": 5
     },
     "web": {
       "bundler": "metro",
@@ -33,7 +33,15 @@
     },
     "plugins": [
       "expo-router",
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-build-properties", 
+        {
+          "android": {
+            "enableProguardInReleaseBuilds": true
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
