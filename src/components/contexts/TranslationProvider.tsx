@@ -192,8 +192,7 @@ interface TranslationProviderProps {
 
 export default function TranslationProvider(props: TranslationProviderProps) {
   const [locale, setLocale] = useState<Locales>(
-    // getLocales()[0]!.languageCode as Locales,
-    'pt',
+    getLocales()[0]!.languageCode as Locales,
   )
 
   useEffect(() => {
