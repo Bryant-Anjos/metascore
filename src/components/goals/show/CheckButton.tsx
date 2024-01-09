@@ -2,6 +2,7 @@ import { Text } from 'react-native'
 import { tv } from 'tailwind-variants'
 
 import Touchable from '@src/components/ui/Touchable'
+import useTranslation from '@src/shared/hooks/useTranslation'
 
 export interface CheckButtonProps {
   checked: boolean
@@ -29,10 +30,12 @@ const text = tv({
 })
 
 export default function CheckButton({ checked, onPress }: CheckButtonProps) {
+  const { t } = useTranslation()
+
   return (
     <Touchable className={button({ checked })} onPress={onPress}>
       <Text className={text({ checked })}>
-        Mark as {checked ? 'Undone' : 'Done'}
+        {t(checked ? 'update.uncheck' : 'update.check')}
       </Text>
     </Touchable>
   )
