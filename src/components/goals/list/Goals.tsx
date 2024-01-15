@@ -19,6 +19,7 @@ export default function Goals({ items, onCheck }: GoalsProps) {
       data={items}
       keyExtractor={({ id }) => id}
       renderItem={({ item }) => <Goal {...item} onCheck={onCheck} />}
+      showsVerticalScrollIndicator={false}
     />
   )
 }

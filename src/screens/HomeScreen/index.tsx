@@ -13,8 +13,8 @@ export default function HomeScreen() {
   return (
     <Container>
       <Title>{t('app.name')}</Title>
-      <CreateGoal onClickButton={addGoal} />
       <Goals items={goals} onCheck={toggleChecked} />
+      <CreateGoal onClickButton={addGoal} />
     </Container>
   )
 }

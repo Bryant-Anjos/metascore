@@ -100,6 +100,7 @@ const pt = {
   update: {
     check: 'Marcar como feito',
     uncheck: 'Marcar como não feito',
+    placeholder: 'Mudar nome da meta',
   },
 }
 
@@ -116,6 +117,7 @@ const en = {
   update: {
     check: 'Mark as Done',
     uncheck: 'Mark as Undone',
+    placeholder: 'Change goal name',
   },
 }
 

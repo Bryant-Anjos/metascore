@@ -25,6 +25,21 @@ export function addGoalQuery(id: string, name: string) {
   `
 }
 
+export function deleteGoalQuery(id: string) {
+  return sql`
+    DELETE FROM goals
+    WHERE id = ${id};
+  `
+}
+
+export function changeGoalNameQuery(id: string, name: string) {
+  return sql`
+    UPDATE goals
+    SET name = ${name}
+    WHERE id = ${id};
+  `
+}
+
 export function listGoalRecordsQuery(id: string, year: number) {
   return sql`
     SELECT

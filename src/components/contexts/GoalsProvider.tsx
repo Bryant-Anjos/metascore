@@ -4,7 +4,9 @@ import { ReactNode, createContext, useMemo, useState } from 'react'
 import useDatabase from '@src/shared/hooks/useDatabase'
 import {
   addGoalQuery,
+  changeGoalNameQuery,
   checkGoalQuery,
+  deleteGoalQuery,
   listGoalRecordsQuery,
   listGoalsQuery,
   uncheckGoalQuery,
@@ -18,6 +20,8 @@ interface GoalsContextValue {
   getGoal(id: string): Goal | undefined
   getGoalRecords(id: string, year: number): GoalRecord[]
   addGoal(name: string): Promise<void>
+  deleteGoal(id: string): Promise<void>
+  changeGoalName(id: string, name: string): Promise<void>
   isGoalChecked(id: string): boolean
   isGoalCheckedAtDate: (
     id: string,
@@ -77,6 +81,20 @@ export default function GoalsProvider(props: GoalsProviderProps) {
     await runQuery(query, params)
     const newGoal: Goal = { id, name, checked: false, records: {} }
     setGoals(oldGoals => [...oldGoals, newGoal])
+  }
+
+  async function deleteGoal(id: string) {
+    const { params, query } = deleteGoalQuery(id)
+    await runQuery(query, params)
+    setGoals(oldGoals => oldGoals.filter(goal => goal.id !== id))
+  }
+
+  async function changeGoalName(id: string, name: string) {
+    const { params, query } = changeGoalNameQuery(id, name)
+    await runQuery(query, params)
+    setGoals(oldGoals =>
+      oldGoals.map(goal => (goal.id === id ? { ...goal, name } : goal)),
+    )
   }
 
   async function fetchGoalRecords(id: string, year: number) {
@@ -201,6 +219,8 @@ export default function GoalsProvider(props: GoalsProviderProps) {
         getGoal,
         getGoalRecords,
         addGoal,
+        deleteGoal,
+        changeGoalName,
         isGoalChecked,
         isGoalCheckedAtDate,
         checkGoal,
