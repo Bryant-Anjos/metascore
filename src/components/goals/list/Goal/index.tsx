@@ -4,6 +4,7 @@ import { Text, TextInput, View } from 'react-native'
 import { tv } from 'tailwind-variants'
 
 import FeatherIcon from '@expo/vector-icons/Feather'
+import DeleteGoal from '@src/components/goals/delete/DeleteGoal'
 import Radio from '@src/components/ui/Radio'
 import Touchable, { TouchableRef } from '@src/components/ui/Touchable'
 import Colors from '@src/constants/Colors'
@@ -61,10 +62,19 @@ export default function Goal(props: GoalProps) {
     setInputValue,
     toggleChecked,
     toggleEditing,
+    openDeleteModal,
+    closeDeleteModal,
+    isDeleteModalVisible,
   } = useGoal(props)
 
   return (
     <View className="my-1 bg-light-white rounded-full overflow-hidden">
+      <DeleteGoal
+        visible={isDeleteModalVisible}
+        id={id}
+        name={name}
+        close={closeDeleteModal}
+      />
       {isEditing ? (
         <View className="flex-row items-center py-2 pl-2">
           <TextInput
@@ -88,7 +98,7 @@ export default function Goal(props: GoalProps) {
               {name}
             </Text>
             <IconButton icon="edit" onPress={toggleEditing} />
-            <IconButton icon="trash-2" />
+            <IconButton icon="trash-2" onPress={openDeleteModal} />
             <Link asChild href={`/goals/${id}`}>
               <IconButton icon="chevron-right" />
             </Link>

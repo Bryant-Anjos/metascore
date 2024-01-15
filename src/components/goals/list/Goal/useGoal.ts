@@ -11,6 +11,7 @@ export default function useGoal({ id, name, checked, onCheck }: GoalProps) {
 
   const [isEditing, setIsEditing] = useState(false)
   const [inputValue, setInputValue] = useState(name)
+  const [isDeleteModalVisible, setDeleteModalVisible] = useState(false)
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
@@ -32,6 +33,14 @@ export default function useGoal({ id, name, checked, onCheck }: GoalProps) {
     setIsEditing(false)
   }
 
+  function openDeleteModal() {
+    setDeleteModalVisible(true)
+  }
+
+  function closeDeleteModal() {
+    setDeleteModalVisible(false)
+  }
+
   return {
     id,
     name,
@@ -43,5 +52,8 @@ export default function useGoal({ id, name, checked, onCheck }: GoalProps) {
     setInputValue,
     toggleEditing,
     toggleChecked,
+    openDeleteModal,
+    closeDeleteModal,
+    isDeleteModalVisible,
   }
 }

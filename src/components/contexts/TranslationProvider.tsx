@@ -102,6 +102,9 @@ const pt = {
     uncheck: 'Marcar como não feito',
     placeholder: 'Mudar nome da meta',
   },
+  delete: {
+    confirmation: 'Tem certeza que deseja excluir a meta ',
+  },
 }
 
 const en = {
@@ -118,6 +121,9 @@ const en = {
     check: 'Mark as Done',
     uncheck: 'Mark as Undone',
     placeholder: 'Change goal name',
+  },
+  delete: {
+    confirmation: 'Do you really want to delete the goal ',
   },
 }
 
