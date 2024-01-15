@@ -66,7 +66,7 @@ export default function Goal(props: GoalProps) {
   return (
     <View className="my-1 bg-light-white rounded-full overflow-hidden">
       {isEditing ? (
-        <View className="flex-1 flex-row items-center py-2 pl-2">
+        <View className="flex-row items-center py-2 pl-2">
           <TextInput
             className="flex-1 px-6"
             ref={inputRef}
@@ -82,7 +82,7 @@ export default function Goal(props: GoalProps) {
         </View>
       ) : (
         <Link asChild href={`/goals/${id}`}>
-          <Touchable className="flex-1 flex-row items-center py-2 pl-2">
+          <Touchable className="flex-row items-center py-2 pl-2">
             <Radio checked={checked} onPress={toggleChecked} />
             <Text className={text({ checked })} numberOfLines={3}>
               {name}
